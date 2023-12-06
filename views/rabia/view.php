@@ -1,12 +1,23 @@
 <?php
 
+use app\models\domain\repository\RabiaDAO;
+
 /** @var \app\models\domain\entity\Rabia $model */
 //Decodificar el Json enviado
 $jsonData = json_decode($model->json, true);
 
+// Obtener nombre y apellido del dueño
+$ownerInfo = (new RabiaDAO())->getOwnerInfoById($model->id_doc_rabia);
+$nombre_dueno = $ownerInfo['nombre_dueno'] ?? '';
+$apellido_dueno = $ownerInfo['apellido_dueno'] ?? '';
+
+// Obtener nombre y apellido del animal
+$animalInfo = (new RabiaDAO())->getAnimalInfoById($model->id_doc_rabia);
+$nombre_animal = $animalInfo['nombre_animal'] ?? '';
+
 ?>
 
-<h1>Registro N° <?= $model->id_doc_rabia ?></h1> 
+<h1>Registro N° <?= $model->id_doc_rabia ?></h1>
 
 <table class="table">
     <tbody>
@@ -24,15 +35,15 @@ $jsonData = json_decode($model->json, true);
         </tr>
         <tr>
             <td> Fecha </td>
-            <td> <?= $model->fecha_registro_rabia?> </td>
+            <td> <?= $model->fecha_registro_rabia ?> </td>
         </tr>
         <tr>
-            <td> ID Dueño </td>
-            <td> <?= $model-> id_dueno ?> </td>
+            <td> Nombre del dueño </td>
+            <td> <?= $nombre_dueno ?> <?= $apellido_dueno ?> </td>
         </tr>
         <tr>
-            <td> ID Animal </td>
-            <td> <?= $model-> id_animal ?> </td>
+            <td> Nombre del Animal </td>
+            <td> <?= $nombre_animal ?> </td>
         </tr>
         <tr>
             <td><b>Condición del animal</b></td>
