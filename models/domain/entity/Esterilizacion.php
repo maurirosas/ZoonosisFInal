@@ -7,6 +7,7 @@ use app\models\domain\repository\DAOFactory;
 class Esterilizacion{
 
     public string $id = '';
+    public ? string $fecha_esterilizacion = '';
     public string $tatuaje= '';
 
     public string $datatype='';
